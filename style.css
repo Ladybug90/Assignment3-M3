@@ -1,0 +1,42 @@
+/*  these code centers everything on the screen */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+/* these codes are used to style the toggle button */
+#theme-toggle-btn {
+    margin-bottom: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease; /* FIXED: was "active", now "ease" */
+}
+/* these codes are used to style the toggle button when hovered and clicked */
+#theme-toggle-btn:hover {
+    background-color: #555;
+}
+
+#theme-toggle-btn:active {
+    transform: scale(0.95); /* BONUS: added click feel */
+}
+
+/* these codes are used to style the clock canvas */
+#analog-clock {
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    background-color: #ffffff;
+}
