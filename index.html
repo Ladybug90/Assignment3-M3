@@ -3,15 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Analog Clock</title>
+    <!-- Bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- bootstrap icon -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- style sheet -->
     <link rel="stylesheet" href="style.css">
+    <!-- map cdn -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Dashboard | Assignment # 3</title>
 </head>
-<body>
+<body class="bg-mode day-mode">
 
-    <button id="theme-toggle-btn">Toggle Night Mode</button>
-    
-    <canvas id="analog-clock" width="400" height="400"></canvas>
+    <!-- header -->
+     <header class="header-main py-4 mb-4 shadow-sm">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h5 class="text-uppercase trackingwider text-info small fw-bold mb-1">Vocational training Development Institute</h5>
+                    <h1 class="h3 fw-bold m-0">Dynamic Website & Application</h1>
+                    <p class="mb-0 cpacity-75 small">Module 3: API Integration & Canvas</p>
+                    <div class="mt-2 py-1 px-3 bg-white bg-opacity-10 d-inline-block rounded-pill">
+                        <small>Lecturer: <strong>Doron Williams</strong></small>
+                    </div>
+                </div>
+                <div class="col-md-5 text-md-end mt-md-0">
+                    <!-- <div class="d-inline-block text-start border-start border-info border-3 ps-3">
+                        <h6 class="text-uppercase x-small fw-bold mb-2 bg-opacity-50">Group Member</h6>
+                        <ul class="list-unstyled mb-0 fw-medium">
+                            <li>Santeen Budda</li>
+                            <li>Santeen Budda</li>
+                            <li>Santeen Budda</li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+     </header>
 
-    <script src="script.js"></script>
+     <!-- Main -->
+     <main class="container">
+        <!-- Toggle -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold m-0">Dashboard</h4>
+            <button id="themeToggle" class="btn btn-theme shadow-sm rounded-pill px-4">
+                <span class="mode-icon"><i class="bi bi-moon-fill"></i></span>
+            </button>
+        </div>
+
+        <!-- map -->
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <label class="form-label fw-bold">Geospatial Intellegence</label>
+                        <div class="input-group mb-3 custom-search">
+                            <input type="text" id="locationInput" class="form-control" placeholder="Search Location (e.g. Negril, Jamaica)">
+                            <button class="btn btn-primary px-4" id="searchLocation">Search</button>
+                        </div>
+                        <div id="map" class="bg-light rounded-3 border"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Clock -->
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm h-100 clock-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <h6 class="text-uppercase fw-bold text-muted small mb-3">Clock</h6>
+                        <canvas id="ClockCanvas" width="300" height="300"></canvas>
+                        <p class="mt-3 x-small text-muted mb-0">Sync: refresh rate (60fps)</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="fw-bold mb-0">On-Demand</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-4">
+                            <div class="col-md-8">
+                                <div style="max-width: 800px; margin: auto;">
+                                    <div class="ratio ratio-16x9 shadow-sm rounded-4 overflow-hidden bg-black">
+                                        <iframe id="mainPlayer" 
+                                                src="https://www.youtube.com/embed/" 
+                                                title="YouTube video player" 
+                                                allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="videoSearch" class="form-control" placeholder="Search videos to play...">
+                                    <button class="btn btn-danger" id="videoSearchBtn">Search</button>
+                                </div>
+                                <div id="videoResult" class="list-group list-group-flush video-list custom-scrollbar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News -->
+            <div class="col-12 mb-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 px-2">
+                    <h5 class="fw-bold m-0">Real-Time News Stream</h5>
+                    <div class="d-flex align-items-center mt-2 mt-md-0">
+                        <input type="text" id="news-query" placeholder="Search news (e.g., Business)..." class="form-control">
+                        <button class="btn btn-primary" type="button" id="search-btn">
+                            <span id="search-text">Search</span>
+                        </button>
+                    </div>
+                    <div id="newsLoader" class="spinner-border spinner-border-sm text-primary loading-spinner" role="status" style="display: none;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="newsGrid">
+                </div>
+            </div>
+
+        </div>
+     </main>
+     <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4 mt-auto border-top border-info border-4 w-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-uppercase fw-bold text-info small mb-3">About Project</h5>
+                <p class="small opacity-75">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum quod eius minima unde deserunt veritatis quasi, enim nisi commodi harum ut nihil aliquam dolores repellendus est aperiam ducimus explicabo fugiat.
+                </p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="text-uppercase fw-bold text-info small mb-3">About Project</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase fw-bold text-info small mb-3">About Project</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase fw-bold text-info small mb-3">About Project</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                    <li class="mb-2">Lorem.</li>
+                </ul>
+            </div>
+
+            <hr class="border-secondary opacity-25">
+            <div class="row align-items-center">
+                <div class="col-md-7 small opacity-50">
+                All rights reserved.
+                </div>
+                <div class="col-md-5 text-md-end small">
+                    Lorem, ipsum.
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</footer>
+    <script type="module" src="/js/mapApp.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="/js/newsApp.js"></script>
+    <script type="module" src="/js/videoApp.js"></script>
+    <script type="module" src="/js/clockApp.js"></script>
 </body>
 </html>
