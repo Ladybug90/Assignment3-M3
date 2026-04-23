@@ -1,4 +1,4 @@
-import { SETTINGS } from "./settings.js";
+import { SETTINGS } from "./config.js";
 
 // @param {string} query - which is the search term for the news articules
 //@return {promise<void>} - gets the data and update the news grid

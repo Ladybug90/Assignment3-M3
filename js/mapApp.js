@@ -1,4 +1,4 @@
-import { SETTINGS } from "./settings.js";
+import { SETTINGS } from "./config.js";
 
 //@description: initialization of the map using the settings imported from ./settings.js
 const map = L.map('map').setView(SETTINGS.MAP_INFO.PRIMARY_CENTER,SETTINGS.MAP_INFO.PRIMARY_ZOOM);

@@ -1,4 +1,4 @@
-import { SETTINGS } from "./settings.js";
+import { SETTINGS } from "./config.js";
 
 //@params {string} query - this is the search term for the youtube video
 //@return {promise<void>} - fetches top 5 videos and then updats the list
