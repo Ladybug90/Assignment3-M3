@@ -1,136 +1,42 @@
-:root {
-    --primary-blue: #003366;
-    --accent-cyan: #0dcaf0;
-    --card-radius: 16px
-    --transition: 0.3s ease;
-}
-
-body.day-mode {
-    background-color: #e4f5fd;
-    color: #2c3e50;
-}
-
-body.night-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-.header-main {
-    background: var(--primary-blue);
-    color: white;
-    border-bottom: 5px solid var(--accent-cyan);
-}
-
-.card {
-    border-radius: var(--card-radius);
-    transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.night-mode .card {
-    background-color: #1e1e1e;
-    color: white;
-}
-
-.night-mode .card .card-text {
-    color: #e0e0e0 !important;
-}
-
-#map {height: 400px; width: 100%;}
-
-.btn-theme {
-    background: #fff;
-    color: #000;
-    font-weight: 600;
-}
-
-.night-mode .btn-theme {
-    background: #333;
-    color: #fff;
-    border: 1px solid #444;
-}
-
-.x-small {
-    font-size: 0.7rem;
-}
-
-.tracking-wider {
-    letter-spacing: 1px;
-}
-
-.custom-scrollbar {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-
-/* new */
-.loading-spinner {
-    display: none;
-}
-
-.news-card {
-    transition: transform var(--transition);
-    height: 100%;
+/*  these code centers everything on the screen */
+body {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease;
 }
 
-.news-card:hover {
-    transform: translateY(-5px);
+/* these codes are used to style the toggle button */
+#theme-toggle-btn {
+    margin-bottom: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease; /* FIXED: was "active", now "ease" */
+}
+/* these codes are used to style the toggle button when hovered and clicked */
+#theme-toggle-btn:hover {
+    background-color: #555;
 }
 
-/* video */
-/* Night mode for the video list */
-.night-mode #videoResult h6 {
-    color: #ffffff;
+#theme-toggle-btn:active {
+    transform: scale(0.95); /* BONUS: added click feel */
 }
 
-.video-title {
-    color: #212529; 
-}
-
-.video-channel {
-    color: #6c757d;
-}
-
-.night-mode .video-channel {
-    color: #b0b0b0 !important; 
-}
-
-.night-mode .list-group-item-action:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff;
-}
-.custom-scrollbar {
-    max-height:  450px;
-    overflow-y: auto;
-}
-
-.ratio > iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 0;
-}
-
-.rounded-4 {
-    border-radius: 1.5rem !important; 
-    mask-image: -webkit-linear-gradient(white, black);
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-}
-
-.bg-black {
-    background-color: #000 !important;
-}
-
-.overflow-hidden {
-    isolation: isolate;
-}
-
-
-/* clock */
-
-.night-mode .clock-card h6, 
-.night-mode .clock-card p {
-    color: #bbbbbb !important;
+/* these codes are used to style the clock canvas */
+#analog-clock {
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    background-color: #ffffff;
 }
